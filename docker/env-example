@@ -1,0 +1,14 @@
+# Copy to docker/.env and fill in.
+
+# Public URL of the site - used for password-reset / verification email links.
+APP_URL=
+
+# Database
+DB_NAME=petlove_club
+DB_USER=petlove
+DB_PASSWORD=
+DB_ROOT_PASSWORD=
+
+# Local-only ports (host nginx proxies to these). Bound to 127.0.0.1 in docker-compose.yml.
+APP_PORT=8080
+PMA_PORT=8081

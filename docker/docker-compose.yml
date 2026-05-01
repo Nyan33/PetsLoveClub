@@ -1,0 +1,59 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: petslove-app:latest
+    container_name: petslove-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-petlove_club}
+      DB_USER: ${DB_USER:-petlove}
+      DB_PASSWORD: ${DB_PASSWORD:-petlove}
+      APP_URL: ${APP_URL:-your_url_here}
+    volumes:
+      - app_uploads:/var/www/html/uploads
+      - ./config/config.php:/var/www/html/includes/config.php:ro
+    ports:
+      - "127.0.0.1:${APP_PORT:-8080}:80"
+
+  db:
+    image: mariadb:11
+    container_name: petslove-db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpw}
+      MARIADB_DATABASE: ${DB_NAME:-petlove_club}
+      MARIADB_USER: ${DB_USER:-petlove}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-petlove}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ../sql/petlove_club.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ../sql/migrate.sql:/docker-entrypoint-initdb.d/02-migrate.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: petslove-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "127.0.0.1:${PMA_PORT:-8081}:80"
+
+volumes:
+  db_data:
+  app_uploads:

@@ -1,0 +1,15 @@
+.git
+.gitignore
+node_modules
+docker/config/config.php
+docker/.env
+.idea
+.vscode
+includes/config.php
+uploads/avatars/*
+uploads/pets/*
+uploads/gallery/*
+uploads/events/*
+uploads/news/*
+uploads/kb/*
+!uploads/**/.gitkeep

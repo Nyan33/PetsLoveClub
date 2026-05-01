@@ -1,0 +1,253 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: 'Manrope', sans-serif;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #ea580c, #e11d48);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Единая hover-анимация для всех интерактивных элементов */
+.btn-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    will-change: transform;
+}
+.btn-hover:hover {
+    transform: translateY(-2px);
+}
+.btn-hover:active {
+    transform: translateY(0);
+}
+button, a.btn, [role="button"] {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+button:not(:disabled),
+[role="button"],
+[onclick],
+label[for],
+summary,
+select,
+.btn-hover,
+a {
+    cursor: pointer;
+}
+button:disabled {
+    cursor: not-allowed;
+}
+
+.role-badge {
+    position: relative;
+    cursor: help;
+}
+.role-tip {
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    background: #111827;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    max-width: 240px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.role-tip.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.25;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.prose-content h1 { font-size: 1.75rem; }
+.prose-content h2 { font-size: 1.5rem; }
+.prose-content h3 { font-size: 1.25rem; }
+.prose-content h4 { font-size: 1.1rem; }
+.prose-content p { margin-bottom: 1rem; }
+.prose-content ul,
+.prose-content ol {
+    margin: 0 0 1rem 1.5rem;
+    padding-left: 0.5rem;
+}
+.prose-content ul { list-style: disc; }
+.prose-content ol { list-style: decimal; }
+.prose-content li { margin-bottom: 0.4rem; }
+.prose-content strong { font-weight: 700; color: #111827; }
+.prose-content em { font-style: italic; }
+.prose-content a {
+    color: #f43f5e;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.prose-content a:hover { color: #e11d48; }
+.prose-content blockquote {
+    border-left: 4px solid #fda4af;
+    background: #fff1f2;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    color: #4b5563;
+    font-style: italic;
+}
+.prose-content code {
+    background: #fef3c7;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92em;
+}
+.prose-content pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+.prose-content pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+.prose-content hr {
+    border: 0;
+    border-top: 2px solid #f3f4f6;
+    margin: 1.5rem 0;
+}
+.prose-content img {
+    max-width: 100%;
+    border-radius: 0.75rem;
+    margin: 1rem 0;
+}
+.prose-content > *:first-child { margin-top: 0; }
+.prose-content > *:last-child { margin-bottom: 0; }
+
+/* Admin dashboard (dark theme) */
+.admin-body {
+    color-scheme: dark;
+}
+.admin-body input::placeholder,
+.admin-body textarea::placeholder {
+    color: #6b7280;
+}
+.admin-body input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
+}
+.admin-body ::-webkit-scrollbar { width: 10px; height: 10px; }
+.admin-body ::-webkit-scrollbar-track { background: #0a0a0a; }
+.admin-body ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 6px; }
+.admin-body ::-webkit-scrollbar-thumb:hover { background: #374151; }
+@media (max-width: 1023px) {
+    main.lg\:pr-80 { padding-right: 1rem !important; }
+    main.lg\:pr-72 { padding-right: 1rem !important; }
+}
+
+/* Cropper.js theme override — minimal box with bold rounded corners */
+.cropper-view-box {
+    border-radius: 1rem;
+    outline: 2px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+.cropper-face {
+    border-radius: 1rem;
+    background-color: transparent !important;
+}
+.cropper-line,
+.cropper-dashed,
+.cropper-center {
+    display: none !important;
+}
+.cropper-point {
+    background-color: transparent !important;
+    opacity: 1 !important;
+    width: 22px;
+    height: 22px;
+    border: 0;
+}
+.cropper-point.point-n,
+.cropper-point.point-s,
+.cropper-point.point-e,
+.cropper-point.point-w {
+    display: none !important;
+}
+.cropper-point.point-nw,
+.cropper-point.point-ne,
+.cropper-point.point-sw,
+.cropper-point.point-se {
+    width: 22px;
+    height: 22px;
+}
+.cropper-point.point-nw {
+    top: -3px;
+    left: -3px;
+    border-top: 4px solid #ffffff;
+    border-left: 4px solid #ffffff;
+    border-top-left-radius: 1rem;
+}
+.cropper-point.point-ne {
+    top: -3px;
+    right: -3px;
+    border-top: 4px solid #ffffff;
+    border-right: 4px solid #ffffff;
+    border-top-right-radius: 1rem;
+}
+.cropper-point.point-sw {
+    bottom: -3px;
+    left: -3px;
+    border-bottom: 4px solid #ffffff;
+    border-left: 4px solid #ffffff;
+    border-bottom-left-radius: 1rem;
+}
+.cropper-point.point-se {
+    bottom: -3px;
+    right: -3px;
+    border-bottom: 4px solid #ffffff;
+    border-right: 4px solid #ffffff;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 1rem;
+}
+.cropper-point.point-se::before {
+    display: none;
+}
+.cropper-modal {
+    background-color: #0f172a;
+    opacity: 0.6;
+}
